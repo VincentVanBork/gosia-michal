@@ -1,1 +1,1 @@
-web: bin/gosia-michal
+web: bin/main
