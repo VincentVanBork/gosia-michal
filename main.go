@@ -20,5 +20,5 @@ func main() {
 	//Handle Cors
 	app.Use(cors.New())
 
-	log.Fatal(app.Listen(port))
+	log.Fatal(app.Listen(":" + port))
 }
