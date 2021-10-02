@@ -5,5 +5,5 @@ import (
 )
 
 func ServeFront(app *fiber.App) {
-	app.Static("/", "./front/build/")
+	app.Static("/", "./front/build")
 }

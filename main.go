@@ -17,6 +17,10 @@ func main() {
 
 	app := fiber.New()
 	routes.ServeFront(app)
+	// This route path will match requests to "/about":
+	app.Get("/about", func(c *fiber.Ctx) error {
+		return c.SendString("about")
+	})
 	//Handle Cors
 	app.Use(cors.New())
 
