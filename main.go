@@ -22,6 +22,9 @@ func main() {
 	routes.SetupAuthRoutes(app)
 	//Handle Cors
 	app.Use(cors.New())
-	app.Use(keyauth.New(keyauth.Config{KeyLookup: "query:token", Validator: models.ValidateGuestToken}))
+	app.Use(keyauth.New(keyauth.Config{
+		KeyLookup:  "query:token",
+		Validator:  models.ValidateGuestToken,
+		ContextKey: "token"}))
 	log.Fatal(app.Listen(":" + port))
 }
