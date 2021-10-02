@@ -4,10 +4,9 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/keyauth/v2"
+	"log"
 	"main/models"
 	"main/routes"
-
-	"log"
 	"os"
 )
 
@@ -19,12 +18,14 @@ func main() {
 
 	app := fiber.New()
 	routes.ServeFront(app)
-	routes.SetupAuthRoutes(app)
 	//Handle Cors
 	app.Use(cors.New())
 	app.Use(keyauth.New(keyauth.Config{
 		KeyLookup:  "query:token",
 		Validator:  models.ValidateGuestToken,
 		ContextKey: "token"}))
+
+	routes.SetupAuthRoutes(app)
+
 	log.Fatal(app.Listen(":" + port))
 }
