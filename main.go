@@ -18,7 +18,7 @@ func main() {
 
 	app := fiber.New()
 	routes.ServeFront(app)
-
+	routes.SetupAuthRoutes(app)
 	//Handle Cors
 	app.Use(cors.New())
 	app.Use(keyauth.New(keyauth.Config{KeyLookup: "query:token"}))
