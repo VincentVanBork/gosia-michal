@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+import logo from './us.jpg';
 import './App.css';
 
 function App() {
@@ -9,14 +9,6 @@ function App() {
         <p>
           Welcome to out wedding invitation. We are the bebis Michał and Gosia.
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
       </header>
     </div>
   );
