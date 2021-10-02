@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
+	"github.com/gofiber/keyauth/v2"
 	"main/routes"
 
 	"log"
@@ -17,12 +18,9 @@ func main() {
 
 	app := fiber.New()
 	routes.ServeFront(app)
-	// This route path will match requests to "/about":
-	app.Get("/about", func(c *fiber.Ctx) error {
-		return c.SendString("about")
-	})
+
 	//Handle Cors
 	app.Use(cors.New())
-
+	app.Use(keyauth.New(keyauth.Config{KeyLookup: "query:token"}))
 	log.Fatal(app.Listen(":" + port))
 }
