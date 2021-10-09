@@ -1,12 +1,9 @@
 package main
 
 import (
-	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/cors"
-	"github.com/gofiber/keyauth/v2"
+	"github.com/gin-gonic/gin"
 	"log"
-	"main/models"
-	"main/routes"
+	"net/http"
 	"os"
 )
 
@@ -15,17 +12,14 @@ func main() {
 	if port == "" {
 		log.Fatal("$PORT must be set")
 	}
+	router := gin.New()
+	router.Use(gin.Logger())
+	router.LoadHTMLGlob("front/build/index.html")
+	router.Static("/static", "front/build/static")
 
-	app := fiber.New()
-	routes.ServeFront(app)
-	//Handle Cors
-	app.Use(cors.New())
-	app.Use(keyauth.New(keyauth.Config{
-		KeyLookup:  "query:token",
-		Validator:  models.ValidateGuestToken,
-		ContextKey: "token"}))
+	router.GET("/", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "index.html", nil)
+	})
 
-	routes.SetupAuthRoutes(app)
-
-	log.Fatal(app.Listen(":" + port))
+	log.Fatal(router.Run(":" + port))
 }
