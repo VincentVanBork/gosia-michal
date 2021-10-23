@@ -1,3 +1,8 @@
+import {fetch_invitation} from "./fetch_invitation.js";
+
+
+
+
 const queryString = window.location.search;
 console.log(queryString);
 const urlParams = new URLSearchParams(queryString);
@@ -27,7 +32,7 @@ var txt = [
 var speed =97;
 let inx = 0;
 
-typer = (txt, box, inx) => {
+const typer = (txt, box, inx) => {
     if (inx < txt.length) {
         document.getElementById(box).innerHTML += txt.charAt(inx);
         inx++;
@@ -50,9 +55,9 @@ function unfade(element, disp) {
 }
 
 document.addEventListener('DOMContentLoaded', function (event) {
-    // let src_audio = audio_mix[get_random(0, 2)];
-    // let audio = new Audio("mp3/" + src_audio);
-    // audio.play();
+    let src_audio = audio_mix[get_random(0, 2)];
+    let audio = new Audio("mp3/" + src_audio);
+    audio.play();
 
     setTimeout(() => typer(txt[0], "f1t", inx), 100);
 
@@ -63,9 +68,12 @@ document.addEventListener('DOMContentLoaded', function (event) {
     setTimeout(() => typer(txt[4], "f3tb", inx), speed * (txt[3].length + txt[2][0].length + txt[1].length + txt[0].length));
     setTimeout(() => typer(txt[5][0], "f4tb", inx), speed * (txt[4].length + txt[3].length + txt[2][0].length + txt[1].length + txt[0].length));
 
-    element1 = document.querySelector(".bottom-box");
+    let element1 = document.querySelector(".bottom-box");
     setTimeout(() => unfade(element1, "flex"), speed * (txt[5][0].length + txt[4].length + txt[3].length + txt[2][0].length + txt[1].length + txt[0].length));
 
-    element2 = document.querySelector(".reg-box");
+    let element2 = document.querySelector(".reg-box");
     setTimeout(() => unfade(element2, "block"), speed * (txt[5][0].length + txt[4].length + txt[3].length + txt[2][0].length + txt[1].length + txt[0].length));
 });
+
+console.log(window.location.pathname.split("/").at(-1))
+fetch_invitation(window.location.pathname.split("/").at(-1))
