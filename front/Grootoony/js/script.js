@@ -3,7 +3,7 @@ console.log(queryString);
 const urlParams = new URLSearchParams(queryString);
 const sl = urlParams.get('sl');
 
-var audio_mix = [
+const audio_mix = [
     "1.mp3",
     "2.mp3",
     "3.mp3"
@@ -16,8 +16,8 @@ function get_random(min, max) {
 }
 
 var txt = [
-    'Zaproszenie na ślub',
-    'Małgorzaty i Michała',
+    'Zaproszenie dla',
+    'Michała i Marty',
     ["Z radością zapraszamy " + (sl == 1 ? "Cię" : "Was")],
     "na uroczyste zawarcie sakramentu małżeństwa,",
     "które odbędzie się 25 czerwca 2022 roku o godzinie 17:00.",
@@ -50,9 +50,9 @@ function unfade(element, disp) {
 }
 
 document.addEventListener('DOMContentLoaded', function (event) {
-    let src_audio = audio_mix[get_random(0, 2)];
-    let audio = new Audio("mp3/" + src_audio);
-    audio.play();
+    // let src_audio = audio_mix[get_random(0, 2)];
+    // let audio = new Audio("mp3/" + src_audio);
+    // audio.play();
 
     setTimeout(() => typer(txt[0], "f1t", inx), 100);
 

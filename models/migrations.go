@@ -8,7 +8,8 @@ import (
 func MigrateAll(db *gorm.DB) {
 	err := db.AutoMigrate(
 		&Invitation{},
-		&Guest{})
+		&Guest{},
+	)
 	if err != nil {
 		log.Fatalln(err)
 	}

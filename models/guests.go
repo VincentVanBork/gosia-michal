@@ -6,16 +6,15 @@ type Guest struct {
 	gorm.Model
 	FirstName    *string
 	LastName     *string
-	phoneNumber  string
-	InvitationID int
-	Invitation   Invitation
+	InvitationID uint
 }
 
 type Invitation struct {
 	gorm.Model
 	email              *string
-	token              *string
+	Token              string
 	hasKids            bool
 	isWedding          bool
 	isWeddingReception bool
+	Guests             []Guest
 }
