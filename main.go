@@ -43,12 +43,13 @@ func main() {
 		panic("failed to connect database")
 	}
 	models.MigrateAll(db)
+	var auth = middleware.TokenAuth{Objects: db}
 
 	invitations := r.Group("/guest")
+	invitations.Use(auth.CheckAnyToken)
 	var invitationsController = controllers.InvitationsController{Objects: db}
 	routes.AddFrontInvitation(invitations, &invitationsController)
 
-	var auth = middleware.TokenAuth{Objects: db}
 	secure := r.Group("/api")
 	secure.Use(auth.CheckToken)
 	routes.AddGuestsURLs(secure, &controllers.GuestController{Objects: db})
