@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', async function (event) {
         }
         if (invitation.IsSingle) {
             txt[1] += " "
-            txt[1] += "wraz z osobą towarzysząca"
+            txt[1] += "wraz z osobą towarzyszącą"
         }
     }
     setTimeout(() => typer(txt[0], "f1t", inx), 100);
