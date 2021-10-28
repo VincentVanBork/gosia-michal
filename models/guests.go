@@ -1,6 +1,9 @@
 package models
 
-import "gorm.io/gorm"
+import (
+	"database/sql"
+	"gorm.io/gorm"
+)
 
 type Guest struct {
 	gorm.Model
@@ -11,10 +14,11 @@ type Guest struct {
 
 type Invitation struct {
 	gorm.Model
-	email              *string
+	Email              sql.NullString
 	Token              string
-	hasKids            bool
-	isWedding          bool
-	isWeddingReception bool
+	IsSingle           bool `gorm:"default:false"`
+	HasKids            bool `gorm:"default:false"`
+	IsWedding          bool `gorm:"default:true"`
+	IsWeddingReception bool `gorm:"default:true"`
 	Guests             []Guest
 }

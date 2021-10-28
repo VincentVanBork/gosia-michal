@@ -35,13 +35,7 @@ func (u *GuestController) Create(c *gin.Context) {
 		})
 	}
 
-	createError := u.Objects.Create(&guest)
-	if createError != nil {
-		c.AbortWithStatusJSON(500, gin.H{
-			"reason": "BAD CREATE",
-		})
-		return
-	}
+	u.Objects.Create(&guest)
 
 	c.JSON(200, guest)
 }

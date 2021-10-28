@@ -32,8 +32,7 @@ func (u *InvitationsController) GetOne(c *gin.Context) {
 			invitation = m
 		}
 	}
-
-	u.Objects.Find(&invitation)
+	u.Objects.Preload("Guests").Find(&invitation)
 	c.JSON(200, invitation)
 }
 
@@ -48,7 +47,7 @@ func (u *InvitationsController) Create(c *gin.Context) {
 	}
 	// Generate a password that is 64 characters long with 10 digits, 10 symbols,
 	// allowing upper and lower case letters, disallowing repeat characters.
-	res, err := password.Generate(64, 10, 10, false, false)
+	res, err := password.Generate(64, 0, 0, false, true)
 	if err != nil {
 		c.AbortWithStatusJSON(500, gin.H{
 			"reason": "BAD PASS GEN",
@@ -61,13 +60,7 @@ func (u *InvitationsController) Create(c *gin.Context) {
 		})
 	}
 	invitation.Token = hash
-	createError := u.Objects.Create(&invitation)
-	if createError != nil {
-		c.AbortWithStatusJSON(500, gin.H{
-			"reason": "BAD CREATE",
-		})
-		return
-	}
+	u.Objects.Create(&invitation)
 
 	c.JSON(200, gin.H{
 		"invitation": invitation,

@@ -1,13 +1,14 @@
-import {fetch_invitation} from "./fetch_invitation.js";
-
-
-
+async function fetch_invitation(token) {
+    let response = await fetch("/guest/invitations/get/" + token)
+    let data = await response.json()
+    return data
+}
 
 const queryString = window.location.search;
 console.log(queryString);
 const urlParams = new URLSearchParams(queryString);
 const sl = urlParams.get('sl');
-
+const invitation_token = urlParams.get("token")
 const audio_mix = [
     "1.mp3",
     "2.mp3",
@@ -22,7 +23,7 @@ function get_random(min, max) {
 
 var txt = [
     'Zaproszenie dla',
-    'Michała i Marty',
+    (sl == 1 ? "Ciebie" : "Was"),
     ["Z radością zapraszamy " + (sl == 1 ? "Cię" : "Was")],
     "na uroczyste zawarcie sakramentu małżeństwa,",
     "które odbędzie się 25 czerwca 2022 roku o godzinie 17:00.",
@@ -54,11 +55,25 @@ function unfade(element, disp) {
     }, 10);
 }
 
-document.addEventListener('DOMContentLoaded', function (event) {
+document.addEventListener('DOMContentLoaded', async function (event) {
     let src_audio = audio_mix[get_random(0, 2)];
     let audio = new Audio("mp3/" + src_audio);
     audio.play();
-
+    let invitation = await fetch_invitation(invitation_token)
+    console.log(invitation.Guests)
+    if (invitation.Guests.length > 0){
+        txt[1] = ""
+    }
+    for (let i = 0; i < invitation.Guests.length; i++) {
+        txt[1] += " "
+        txt[1] += invitation.Guests[i].FirstName
+        txt[1] += " "
+        txt[1] += invitation.Guests[i].LastName
+        if (i ===0){
+            txt[1] += " "
+            txt[1] += "i"
+        }
+    }
     setTimeout(() => typer(txt[0], "f1t", inx), 100);
 
     setTimeout(() => typer(txt[1], "f2t", inx), speed * txt[0].length);
