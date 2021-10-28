@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', async function (event) {
             txt[1] += " "
             txt[1] += "i"
         }
-        if (!invitation.IsSingle) {
+        if (invitation.IsSingle) {
             txt[1] += " "
             txt[1] += "wraz z osobą towarzysząca"
         }
