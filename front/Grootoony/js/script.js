@@ -29,7 +29,7 @@ var txt = [
     ["Liczymy na " + (sl == 1 ? "Twoją" : "Waszą") + " obecność podczas wspólnego świętowania!"]
 ];
 
-var speed =97;
+var speed = 97;
 let inx = 0;
 
 const typer = (txt, box, inx) => {
@@ -61,12 +61,12 @@ document.addEventListener('DOMContentLoaded', async function (event) {
     img_box.addEventListener('click', function (event) {
         audio.play();
     })
-    document.addEventListener('swiped', function(e) {
+    document.addEventListener('swiped', function (e) {
         audio.play();
     });
     let invitation = await fetch_invitation(invitation_token)
     console.log(invitation.Guests)
-    if (invitation.Guests.length > 0){
+    if (invitation.Guests.length > 0) {
         txt[1] = ""
     }
     for (let i = 0; i < invitation.Guests.length; i++) {
@@ -74,9 +74,15 @@ document.addEventListener('DOMContentLoaded', async function (event) {
         txt[1] += invitation.Guests[i].FirstName
         txt[1] += " "
         txt[1] += invitation.Guests[i].LastName
-        if (i ===0){
+        if (i === 0 && invitation.Guests.length > 1) {
             txt[1] += " "
             txt[1] += "i"
+        }
+        if (!invitation.IsSingle) {
+            if (i === 0 && invitation.Guests.length === 1) {
+                txt[1] += " "
+                txt[1] += "wraz z osobą towarzysząca"
+            }
         }
     }
     setTimeout(() => typer(txt[0], "f1t", inx), 100);
