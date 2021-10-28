@@ -84,19 +84,21 @@ document.addEventListener('DOMContentLoaded', async function (event) {
         }
     }
     setTimeout(() => typer(txt[0], "f1t", inx), 100);
-
     setTimeout(() => typer(txt[1], "f2t", inx), speed * txt[0].length);
+    img_box.addEventListener('click', function (event) {
+        audio.play();
+        setTimeout(() => typer(txt[2][0], "f1tb", inx), 100);
+        setTimeout(() => typer(txt[3], "f2tb", inx), speed * (txt[2][0].length));
+        setTimeout(() => typer(txt[4], "f3tb", inx), speed * (txt[3].length + txt[2][0].length));
+        setTimeout(() => typer(txt[5][0], "f4tb", inx), speed * (txt[4].length + txt[3].length + txt[2][0].length));
 
-    setTimeout(() => typer(txt[2][0], "f1tb", inx), speed * (txt[1].length + txt[0].length));
-    setTimeout(() => typer(txt[3], "f2tb", inx), speed * (txt[2][0].length + txt[1].length + txt[0].length));
-    setTimeout(() => typer(txt[4], "f3tb", inx), speed * (txt[3].length + txt[2][0].length + txt[1].length + txt[0].length));
-    setTimeout(() => typer(txt[5][0], "f4tb", inx), speed * (txt[4].length + txt[3].length + txt[2][0].length + txt[1].length + txt[0].length));
+        let element1 = document.querySelector(".bottom-box");
+        setTimeout(() => unfade(element1, "flex"), speed * (txt[5][0].length + txt[4].length + txt[3].length + txt[2][0].length));
 
-    let element1 = document.querySelector(".bottom-box");
-    setTimeout(() => unfade(element1, "flex"), speed * (txt[5][0].length + txt[4].length + txt[3].length + txt[2][0].length + txt[1].length + txt[0].length));
+        let element2 = document.querySelector(".reg-box");
+        setTimeout(() => unfade(element2, "block"), speed * (txt[5][0].length + txt[4].length + txt[3].length + txt[2][0].length));
+    })
 
-    let element2 = document.querySelector(".reg-box");
-    setTimeout(() => unfade(element2, "block"), speed * (txt[5][0].length + txt[4].length + txt[3].length + txt[2][0].length + txt[1].length + txt[0].length));
 });
 
 console.log(window.location.pathname.split("/").at(-1))
