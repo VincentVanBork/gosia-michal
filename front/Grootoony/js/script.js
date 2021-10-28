@@ -4,7 +4,7 @@ async function fetch_invitation(token) {
 }
 
 const queryString = window.location.search;
-console.log(queryString);
+// console.log(queryString);
 const urlParams = new URLSearchParams(queryString);
 const sl = urlParams.get('sl');
 const invitation_token = urlParams.get("token")
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', async function (event) {
         audio.play();
     });
     let invitation = await fetch_invitation(invitation_token)
-    console.log(invitation.Guests)
+    // console.log(invitation.Guests)
     if (invitation.Guests.length > 0) {
         txt[1] = ""
     }
@@ -79,10 +79,8 @@ document.addEventListener('DOMContentLoaded', async function (event) {
             txt[1] += "i"
         }
         if (!invitation.IsSingle) {
-            if (i === 0 && invitation.Guests.length === 1) {
-                txt[1] += " "
-                txt[1] += "wraz z osobą towarzysząca"
-            }
+            txt[1] += " "
+            txt[1] += "wraz z osobą towarzysząca"
         }
     }
     setTimeout(() => typer(txt[0], "f1t", inx), 100);
