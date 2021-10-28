@@ -1,9 +1,17 @@
 package main
 
 import (
+	"database/sql"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	_ "github.com/jackc/pgx/v4"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 	"log"
-	"net/http"
+	"main/controllers"
+	"main/middleware"
+	"main/models"
+	"main/routes"
 	"os"
 )
 
@@ -12,17 +20,41 @@ func main() {
 	if port == "" {
 		log.Fatal("$PORT must be set")
 	}
-	router := gin.New()
-	router.Use(gin.Logger())
-	router.LoadHTMLGlob("front/build/index.html")
-	router.Static("/static", "front/build/static")
-	router.StaticFile("/manifest.json", "front/build/manifest.json")
-	router.StaticFile("/logo512.png", "front/build/logo512.png")
-	router.StaticFile("/logo192.png", "front/build/logo192.png")
+	r := gin.New()
+	r.Use(gin.Logger())
+	r.Use(gin.Recovery())
+	r.Use(cors.Default())
 
-	router.GET("/", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "index.html", nil)
-	})
+	r.LoadHTMLGlob("front/Grootoony/index.html")
+	r.Static("/static", "front/Grootoony/")
+	r.Static("/img", "front/Grootoony/img")
+	r.Static("/css", "front/Grootoony/css")
+	r.Static("/js", "front/Grootoony/js")
+	r.Static("/mp3", "front/Grootoony/mp3")
 
-	log.Fatal(router.Run(":" + port))
+	sqlDB, err := sql.Open("pgx", os.Getenv("DATABASE_URL"))
+	if err != nil {
+		log.Fatal(err)
+	}
+	db, err := gorm.Open(postgres.New(postgres.Config{
+		Conn: sqlDB,
+	}), &gorm.Config{})
+	if err != nil {
+		panic("failed to connect database")
+	}
+	models.MigrateAll(db)
+	var auth = middleware.TokenAuth{Objects: db}
+
+	invitations := r.Group("/guest")
+	invitations.Use(auth.CheckAnyToken)
+	var invitationsController = controllers.InvitationsController{Objects: db}
+	routes.AddFrontInvitation(invitations, &invitationsController)
+
+	secure := r.Group("/api")
+	secure.Use(auth.CheckToken)
+	routes.AddGuestsURLs(secure, &controllers.GuestController{Objects: db})
+	routes.AddInvitationsURLs(secure, &invitationsController)
+
+	r.GET("/:token", auth.CheckAnyToken, invitationsController.RenderInvitation)
+	log.Fatal(r.Run(":" + port))
 }
