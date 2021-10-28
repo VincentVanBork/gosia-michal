@@ -1,7 +1,6 @@
 async function fetch_invitation(token) {
     let response = await fetch("/guest/invitations/get/" + token)
-    let data = await response.json()
-    return data
+    return await response.json()
 }
 
 const queryString = window.location.search;
@@ -58,7 +57,13 @@ function unfade(element, disp) {
 document.addEventListener('DOMContentLoaded', async function (event) {
     let src_audio = audio_mix[get_random(0, 2)];
     let audio = new Audio("mp3/" + src_audio);
-    audio.play();
+    let img_box = document.getElementById("img-div-id")
+    img_box.addEventListener('click', function (event) {
+        audio.play();
+    })
+    document.addEventListener('swiped', function(e) {
+        audio.play();
+    });
     let invitation = await fetch_invitation(invitation_token)
     console.log(invitation.Guests)
     if (invitation.Guests.length > 0){
@@ -91,4 +96,3 @@ document.addEventListener('DOMContentLoaded', async function (event) {
 });
 
 console.log(window.location.pathname.split("/").at(-1))
-fetch_invitation(window.location.pathname.split("/").at(-1))
