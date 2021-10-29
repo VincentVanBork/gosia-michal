@@ -17,9 +17,14 @@ body {
 .title-box {
     padding: 20px;
     text-align: center;
-    font-size: 1.5vw;
+    font-size: 2vw;
     line-height: 2.5vw;
     letter-spacing: 3px;
+}
+.guests-for {
+    font-size: 1vw;
+    line-height: 3.5vw;
+    letter-spacing: 2px;
 }
 .img-box {
     margin: auto;
@@ -37,6 +42,27 @@ body {
     animation-duration: 6s;
     animation-fill-mode: forwards;
 }
+.play-img {
+    position: absolute;
+    top: 20%;
+    left: 28%;
+    opacity: 0;
+
+    animation-delay: 0s;
+    animation-name: animate-play-img;
+    animation-duration: 6s;
+    animation-fill-mode: forwards;
+}
+.play-img-reverse {
+    position: absolute;
+    top: 20%;
+    left: 28%;
+
+    animation-delay: 0s;
+    animation-name: animate-play-img-rev;
+    animation-duration: 3s;
+    animation-fill-mode: forwards;
+}
 .bottom-box {
     font-family:Habibi,Verdana, Geneva, Tahoma, sans-serif;
     display: none;
@@ -44,8 +70,8 @@ body {
     flex-direction: row;
     justify-content: center;
     text-align: center;
-    font-size: 1vw;
-    line-height: 1vw;
+    font-size: 1.5vw;
+    line-height: 2vw;
     letter-spacing: 2px;
     padding-top: 20px;
     border-top: 1px solid white;
@@ -55,8 +81,8 @@ body {
     font-family:Habibi,Verdana, Geneva, Tahoma, sans-serif;
     padding: 20px;
     text-align: center;
-    font-size: 1vw;
-    line-height: 1.5vw;
+    font-size: 2vw;
+    line-height: 2.5vw;
     letter-spacing: 3px;
 }
 .snaw {
@@ -68,8 +94,8 @@ body {
     opacity: 0;
     padding-top: 15px;
     text-align: center;
-    font-size: 1vw;
-    line-height: 1.25vw;
+    font-size: 1.5vw;
+    line-height: 1.75vw;
     letter-spacing: 2px;
 }
 input[type=checkbox] {
@@ -102,12 +128,13 @@ input[type=text]:focus {
 button {
     margin-top: 25px;
     font-size: 2vw;
-    line-height: 3.5vw;
+    line-height: 2.5vw;
     letter-spacing: 2px;
 }
 
 .min-title{
     font-family:Coneria Script Demo,Verdana, Geneva, Tahoma, sans-serif;
+    line-height: 4vw;
 }
 .guests-info{
     font-family:Coneria Script Demo,Verdana, Geneva, Tahoma, sans-serif;

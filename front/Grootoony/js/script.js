@@ -21,12 +21,13 @@ function get_random(min, max) {
 }
 
 var txt = [
-    'Zaproszenie dla',
+    'ZAPROSZENIE',
     (sl == 1 ? "Ciebie" : "Was"),
     ["Z radością zapraszamy " + (sl == 1 ? "Cię" : "Was")],
     "na uroczyste zawarcie sakramentu małżeństwa,",
     "które odbędzie się 25 czerwca 2022 roku o godzinie 17:00.",
-    ["Liczymy na " + (sl == 1 ? "Twoją" : "Waszą") + " obecność podczas wspólnego świętowania!"]
+    ["Liczymy na " + (sl == 1 ? "Twoją" : "Waszą") + " obecność podczas wspólnego świętowania!"],
+    'DLA'
 ];
 
 var speed = 97;
@@ -66,6 +67,9 @@ document.addEventListener('DOMContentLoaded', async function (event) {
     });
     let invitation = await fetch_invitation(invitation_token)
     // console.log(invitation.Guests)
+    if(invitation.IsWeddingReception == false){
+        document.getElementById('reception').style.display = "none";
+    }
     if (invitation.Guests.length > 0) {
         txt[1] = ""
     }
@@ -83,10 +87,7 @@ document.addEventListener('DOMContentLoaded', async function (event) {
             txt[1] += "wraz z osobą towarzyszącą"
         }
     }
-    setTimeout(() => typer(txt[0], "f1t", inx), 100);
-    setTimeout(() => typer(txt[1], "f2t", inx), speed * txt[0].length);
-    img_box.addEventListener('click', function (event) {
-        audio.play();
+    function start_type_rest () {
         setTimeout(() => typer(txt[2][0], "f1tb", inx), 100);
         setTimeout(() => typer(txt[3], "f2tb", inx), speed * (txt[2][0].length));
         setTimeout(() => typer(txt[4], "f3tb", inx), speed * (txt[3].length + txt[2][0].length));
@@ -97,6 +98,16 @@ document.addEventListener('DOMContentLoaded', async function (event) {
 
         let element2 = document.querySelector(".reg-box");
         setTimeout(() => unfade(element2, "block"), speed * (txt[5][0].length + txt[4].length + txt[3].length + txt[2][0].length));
+
+    }
+    img_box.addEventListener('click', function (event) {
+        document.getElementById('play-img').classList.remove('play-img');
+        document.getElementById('play-img').classList.add('play-img-reverse');
+        setTimeout(() => typer(txt[0], "f1t", inx), 100);
+        setTimeout(() => typer(txt[6], "f1.5t", inx), speed * txt[0].length);
+        setTimeout(() => typer(txt[1], "f2t", inx), speed * txt[6].length);
+        audio.play();
+        setTimeout( () => start_type_rest(), speed * txt[1].length);
     })
 
 });
