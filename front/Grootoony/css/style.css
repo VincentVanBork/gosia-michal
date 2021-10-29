@@ -43,9 +43,10 @@ body {
     animation-fill-mode: forwards;
 }
 .play-img {
+    width: 400px;
     position: absolute;
-    top: 20%;
-    left: 28%;
+    top: calc(50% - 270px);
+    left: calc(50% - 200px);
     opacity: 0;
 
     animation-delay: 0s;
@@ -54,9 +55,10 @@ body {
     animation-fill-mode: forwards;
 }
 .play-img-reverse {
+    width: 400px;
     position: absolute;
-    top: 20%;
-    left: 28%;
+    top: calc(50% - 270px);
+    left: calc(50% - 200px);
 
     animation-delay: 0s;
     animation-name: animate-play-img-rev;

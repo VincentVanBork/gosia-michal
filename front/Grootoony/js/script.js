@@ -55,13 +55,26 @@ function unfade(element, disp) {
     }, 10);
 }
 
+function start_type_rest () {
+        setTimeout(() => typer(txt[2][0], "f1tb", inx), 100);
+        setTimeout(() => typer(txt[3], "f2tb", inx), speed * (txt[2][0].length));
+        setTimeout(() => typer(txt[4], "f3tb", inx), speed * (txt[3].length + txt[2][0].length));
+        setTimeout(() => typer(txt[5][0], "f4tb", inx), speed * (txt[4].length + txt[3].length + txt[2][0].length));
+
+        let element1 = document.querySelector(".bottom-box");
+        setTimeout(() => unfade(element1, "flex"), speed * (txt[5][0].length + txt[4].length + txt[3].length + txt[2][0].length));
+
+        let element2 = document.querySelector(".reg-box");
+        setTimeout(() => unfade(element2, "block"), speed * (txt[5][0].length + txt[4].length + txt[3].length + txt[2][0].length));
+}
+
 document.addEventListener('DOMContentLoaded', async function (event) {
     let src_audio = audio_mix[get_random(0, 2)];
     let audio = new Audio("mp3/" + src_audio);
     let img_box = document.getElementById("img-div-id")
-    img_box.addEventListener('click', function (event) {
-        audio.play();
-    })
+    // img_box.addEventListener('click', function (event) {
+    //     audio.play();
+    // })
     document.addEventListener('swiped', function (e) {
         audio.play();
     });
@@ -87,29 +100,19 @@ document.addEventListener('DOMContentLoaded', async function (event) {
             txt[1] += "wraz z osobą towarzyszącą"
         }
     }
-    function start_type_rest () {
-        setTimeout(() => typer(txt[2][0], "f1tb", inx), 100);
-        setTimeout(() => typer(txt[3], "f2tb", inx), speed * (txt[2][0].length));
-        setTimeout(() => typer(txt[4], "f3tb", inx), speed * (txt[3].length + txt[2][0].length));
-        setTimeout(() => typer(txt[5][0], "f4tb", inx), speed * (txt[4].length + txt[3].length + txt[2][0].length));
 
-        let element1 = document.querySelector(".bottom-box");
-        setTimeout(() => unfade(element1, "flex"), speed * (txt[5][0].length + txt[4].length + txt[3].length + txt[2][0].length));
-
-        let element2 = document.querySelector(".reg-box");
-        setTimeout(() => unfade(element2, "block"), speed * (txt[5][0].length + txt[4].length + txt[3].length + txt[2][0].length));
-
-    }
-    img_box.addEventListener('click', function (event) {
+    var clickEventList = function (event) {
+        img_box.removeEventListener('click', clickEventList);
         document.getElementById('play-img').classList.remove('play-img');
         document.getElementById('play-img').classList.add('play-img-reverse');
         setTimeout(() => typer(txt[0], "f1t", inx), 100);
         setTimeout(() => typer(txt[6], "f1.5t", inx), speed * txt[0].length);
         setTimeout(() => typer(txt[1], "f2t", inx), speed * txt[6].length);
         audio.play();
-        setTimeout( () => start_type_rest(), speed * txt[1].length);
-    })
-
+        setTimeout(() => start_type_rest(), speed * txt[1].length);
+    };
+    img_box.addEventListener('click', clickEventList);
 });
 
+var executed = false;
 console.log(window.location.pathname.split("/").at(-1))
