@@ -6,6 +6,7 @@ import (
 	"main/models"
 	"main/utils"
 	"os"
+	"sync"
 )
 
 type TokenAuth controllers.Controller
@@ -49,16 +50,24 @@ func (t *TokenAuth) CheckAnyToken(c *gin.Context) {
 		isAuthorized = true
 		c.Next()
 	}
+	var wg sync.WaitGroup
 	for _, m := range invitations {
-		if utils.CheckPasswordHash(token, m.Token) {
-			isAuthorized = true
-			c.Next()
-		}
+		procInvite := m
+		wg.Add(1)
+		go func(authStatus *bool, currentInvit models.Invitation, token string, wgroup *sync.WaitGroup) {
+			defer wg.Done()
+			if utils.CheckPasswordHash(token, currentInvit.Token) {
+				*authStatus = true
+			}
+		}(&isAuthorized, procInvite, token, &wg)
 	}
+	wg.Wait()
 	if !isAuthorized {
 		c.AbortWithStatusJSON(401, gin.H{
 			"reason": "no hacky hacky",
 		})
+	} else {
+		c.Next()
 	}
 
 }

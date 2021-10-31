@@ -6,6 +6,7 @@ import (
 	"main/models"
 	"main/utils"
 	"net/http"
+	"sync"
 )
 
 type InvitationsController Controller
@@ -23,15 +24,21 @@ func (u *InvitationsController) GetOne(c *gin.Context) {
 			"reason": "BAD BIND",
 		})
 	}
-
 	var invitation models.Invitation
 	var invitations []models.Invitation
 	u.Objects.Find(&invitations)
+	var wg sync.WaitGroup
 	for _, m := range invitations {
-		if utils.CheckPasswordHash(token, m.Token) {
-			invitation = m
-		}
+		procInvite := m
+		wg.Add(1)
+		go func(matchedInvite *models.Invitation, currentInvit models.Invitation, token string, wgroup *sync.WaitGroup) {
+			defer wg.Done()
+			if utils.CheckPasswordHash(token, currentInvit.Token) {
+				*matchedInvite = currentInvit
+			}
+		}(&invitation, procInvite, token, &wg)
 	}
+	wg.Wait()
 	u.Objects.Preload("Guests").Find(&invitation)
 	c.JSON(200, invitation)
 }

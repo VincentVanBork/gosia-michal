@@ -2,6 +2,7 @@ package main
 
 import (
 	"database/sql"
+	"fmt"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	_ "github.com/jackc/pgx/v4"
@@ -12,6 +13,7 @@ import (
 	"main/middleware"
 	"main/models"
 	"main/routes"
+	"main/utils"
 	"os"
 )
 
@@ -46,7 +48,7 @@ func main() {
 	var auth = middleware.TokenAuth{Objects: db}
 
 	invitations := r.Group("/guest")
-	invitations.Use(auth.CheckAnyToken)
+	//invitations.Use(auth.CheckAnyToken)
 	var invitationsController = controllers.InvitationsController{Objects: db}
 	routes.AddFrontInvitation(invitations, &invitationsController)
 
@@ -56,5 +58,6 @@ func main() {
 	routes.AddInvitationsURLs(secure, &invitationsController)
 
 	r.GET("/:token", auth.CheckAnyToken, invitationsController.RenderInvitation)
+	fmt.Printf(utils.HashPassword("L6A4YucGYKeDN5n5eKRHkMBtngDkAMV7"))
 	log.Fatal(r.Run(":" + port))
 }
