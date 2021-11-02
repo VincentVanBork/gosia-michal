@@ -13,6 +13,7 @@ func AddInvitationsURLs(r *gin.RouterGroup, controller *controllers.InvitationsC
 
 func AddFrontInvitation(r *gin.RouterGroup, controller *controllers.InvitationsController) {
 	r.GET("invitations/get/:token", controller.GetOne)
+	r.POST("invitations/update/:token", controller.UpdateEmail)
 	//r.POST("invitations/create/:token", controller.Create)
 	//r.POST("invitations/update/:token", controller.UpdateGuests)
 }

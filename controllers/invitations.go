@@ -1,11 +1,15 @@
 package controllers
 
 import (
+	"database/sql"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/sethvargo/go-password/password"
 	"main/models"
 	"main/utils"
 	"net/http"
+	"net/mail"
+	"net/url"
 	"sync"
 )
 
@@ -90,6 +94,57 @@ func (u *InvitationsController) UpdateGuests(c *gin.Context) {
 	u.Objects.Save(oldInvitation)
 }
 
+func (u *InvitationsController) UpdateEmail(c *gin.Context) {
+	token := c.Param("token")
+	if token == "" {
+		c.AbortWithStatusJSON(400, gin.H{
+			"reason": "BAD BIND",
+		})
+	}
+	var invitation models.Invitation
+	var invitations []models.Invitation
+	u.Objects.Find(&invitations)
+	var wg sync.WaitGroup
+	for _, m := range invitations {
+		procInvite := m
+		wg.Add(1)
+		go func(matchedInvite *models.Invitation, currentInvit models.Invitation, token string, wgroup *sync.WaitGroup) {
+			defer wg.Done()
+			if utils.CheckPasswordHash(token, currentInvit.Token) {
+				*matchedInvite = currentInvit
+			}
+		}(&invitation, procInvite, token, &wg)
+	}
+	wg.Wait()
+	u.Objects.Preload("Guests").Find(&invitation)
+	email, isEmail := c.GetPostForm("Email")
+	if isValidEmail(email) && isEmail {
+		invitation.Email = sql.NullString{String: email, Valid: isValidEmail(email)}
+	}
+
+	hotel, isHotel := c.GetPostForm("Hotel")
+	fmt.Println(hotel)
+	if isHotel && hotel == "on" {
+		invitation.Hotel = true
+	}
+
+	transport, isTransport := c.GetPostForm("Transport")
+	fmt.Println(transport)
+	if isTransport && transport == "on" {
+		invitation.Transport = true
+	}
+	u.Objects.Save(invitation)
+	q := url.Values{}
+	q.Set("token", c.Param("token"))
+	location := url.URL{Path: "/" + c.Param("token"), RawQuery: q.Encode()}
+	c.Redirect(http.StatusSeeOther, location.RequestURI())
+}
+
 func (u *InvitationsController) RenderInvitation(c *gin.Context) {
 	c.HTML(http.StatusOK, "index.html", nil)
+}
+
+func isValidEmail(email string) bool {
+	_, err := mail.ParseAddress(email)
+	return err == nil
 }

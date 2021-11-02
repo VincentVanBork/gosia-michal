@@ -20,5 +20,7 @@ type Invitation struct {
 	HasKids            bool `gorm:"default:false"`
 	IsWedding          bool `gorm:"default:true"`
 	IsWeddingReception bool `gorm:"default:true"`
+	Hotel              bool `gorm:"default:false"`
+	Transport          bool `gorm:"default:false"`
 	Guests             []Guest
 }
