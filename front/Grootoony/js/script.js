@@ -65,7 +65,9 @@ function start_type_rest () {
         setTimeout(() => unfade(element1, "flex"), speed * (txt[5][0].length + txt[4].length + txt[3].length + txt[2][0].length));
 
         let element2 = document.querySelector(".reg-box");
-        setTimeout(() => unfade(element2, "block"), speed * (txt[5][0].length + txt[4].length + txt[3].length + txt[2][0].length));
+        if (element2.style.display !== "none"){
+            setTimeout(() => unfade(element2, "block"), speed * (txt[5][0].length + txt[4].length + txt[3].length + txt[2][0].length));
+        }
 }
 
 document.addEventListener('DOMContentLoaded', async function (event) {
@@ -82,6 +84,8 @@ document.addEventListener('DOMContentLoaded', async function (event) {
     // console.log(invitation.Guests)
     if(invitation.IsWeddingReception === false){
         document.getElementById('reception').style.display = "none";
+        document.getElementsByClassName("update-additional-info")[0].style.display = "none"
+        document.getElementById("reception-info").style.display = "none"
     }
     if (invitation.Guests.length > 0) {
         txt[1] = ""
