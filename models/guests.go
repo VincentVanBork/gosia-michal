@@ -18,8 +18,8 @@ type Invitation struct {
 	Token              string
 	IsSingle           bool `gorm:"default:false"`
 	HasKids            bool `gorm:"default:false"`
-	IsWedding          bool `gorm:"default:true"`
-	IsWeddingReception bool `gorm:"default:true"`
+	IsWedding          bool `gorm:"default:false"`
+	IsWeddingReception bool `gorm:"default:false"`
 	Hotel              bool `gorm:"default:false"`
 	Transport          bool `gorm:"default:false"`
 	Guests             []Guest

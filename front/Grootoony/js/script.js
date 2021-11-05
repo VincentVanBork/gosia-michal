@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', async function (event) {
     });
     let invitation = await fetch_invitation(invitation_token)
     // console.log(invitation.Guests)
-    if(invitation.IsWeddingReception == false){
+    if(invitation.IsWeddingReception === false){
         document.getElementById('reception').style.display = "none";
     }
     if (invitation.Guests.length > 0) {
