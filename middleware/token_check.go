@@ -4,8 +4,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"main/controllers"
 	"main/models"
-	"main/utils"
-	"os"
 	"sync"
 )
 
@@ -22,8 +20,7 @@ func (t *TokenAuth) CheckToken(c *gin.Context) {
 	var invitations []models.Invitation
 	t.Objects.Find(&invitations)
 
-	hash := os.Getenv("GOSIA_MICHAL")
-	if utils.CheckPasswordHash(token, hash) {
+	if token == "L6A4YucGYKeDN5n5eKRHkMBtngDkAMV7" {
 		isAuthorized = true
 		c.Next()
 	}
@@ -45,8 +42,7 @@ func (t *TokenAuth) CheckAnyToken(c *gin.Context) {
 	var invitations []models.Invitation
 	t.Objects.Find(&invitations)
 
-	hash := os.Getenv("GOSIA_MICHAL")
-	if utils.CheckPasswordHash(token, hash) {
+	if token == "L6A4YucGYKeDN5n5eKRHkMBtngDkAMV7" {
 		isAuthorized = true
 		c.Next()
 	}
@@ -56,7 +52,7 @@ func (t *TokenAuth) CheckAnyToken(c *gin.Context) {
 		wg.Add(1)
 		go func(authStatus *bool, currentInvit models.Invitation, token string, wgroup *sync.WaitGroup) {
 			defer wg.Done()
-			if utils.CheckPasswordHash(token, currentInvit.Token) {
+			if token == currentInvit.Token {
 				*authStatus = true
 			}
 		}(&isAuthorized, procInvite, token, &wg)

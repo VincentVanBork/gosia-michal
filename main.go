@@ -2,7 +2,6 @@ package main
 
 import (
 	"database/sql"
-	"fmt"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	_ "github.com/jackc/pgx/v4"
@@ -13,7 +12,6 @@ import (
 	"main/middleware"
 	"main/models"
 	"main/routes"
-	"main/utils"
 	"os"
 )
 
@@ -59,6 +57,6 @@ func main() {
 
 	r.GET("/:token", auth.CheckAnyToken, invitationsController.RenderInvitation)
 	r.POST("/:token", invitationsController.UpdateEmail)
-	fmt.Printf(utils.HashPassword("L6A4YucGYKeDN5n5eKRHkMBtngDkAMV7"))
+	//fmt.Printf(utils.HashPassword("L6A4YucGYKeDN5n5eKRHkMBtngDkAMV7"))
 	log.Fatal(r.Run(":" + port))
 }
