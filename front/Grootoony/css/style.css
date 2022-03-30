@@ -111,15 +111,15 @@ input[type=text] {
     padding: 10px;
     width: 40%;
     border: none;
-    border-bottom: 2px solid white;
+    border-bottom: 12px solid white;
     border-radius: 15%;
     background-color: black;
     color: white;
     text-decoration: none;
 
     text-align: center;
-    font-size: 0.5vw;
-    line-height: 1vw;
+    font-size: 3vw;
+    line-height: 3vw;
     letter-spacing: 1px;
 }
 

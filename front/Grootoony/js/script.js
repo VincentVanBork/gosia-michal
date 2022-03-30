@@ -109,11 +109,34 @@ document.addEventListener('DOMContentLoaded', async function (event) {
         img_box.removeEventListener('click', clickEventList);
         document.getElementById('play-img').classList.remove('play-img');
         document.getElementById('play-img').classList.add('play-img-reverse');
-        setTimeout(() => typer(txt[0], "f1t", inx), 100);
-        setTimeout(() => typer(txt[6], "f1.5t", inx), speed * txt[0].length);
-        setTimeout(() => typer(txt[1], "f2t", inx), speed * txt[6].length);
+        if (invitation.Email.String === ""){
+            setTimeout(() => typer(txt[0], "f1t", inx), 100);
+            setTimeout(() => typer(txt[6], "f1.5t", inx), speed * txt[0].length);
+            setTimeout(() => typer(txt[1], "f2t", inx), speed * txt[6].length);
+        }else{
+            document.getElementById("f1t").innerHTML += txt[0];
+            document.getElementById("f1.5t").innerHTML += txt[6];
+            document.getElementById("f2t").innerHTML += txt[1];
+        }
+
         audio.play();
-        setTimeout(() => start_type_rest(), speed * txt[1].length);
+        if (invitation.Email.String === ""){
+            setTimeout(() => start_type_rest(), speed * txt[1].length);
+        }else{
+            document.getElementById("f1tb").innerHTML += txt[2][0];
+            document.getElementById("f2tb").innerHTML += txt[3];
+            document.getElementById("f3tb").innerHTML += txt[4];
+            document.getElementById("f4tb").innerHTML += txt[5][0]
+
+            let element1 = document.querySelector(".bottom-box");
+            unfade(element1, "flex");
+
+            let element2 = document.querySelector(".reg-box");
+            if (element2.style.display !== "none"){
+                unfade(element2, "block");
+            }
+        }
+
     };
     img_box.addEventListener('click', clickEventList);
 });
