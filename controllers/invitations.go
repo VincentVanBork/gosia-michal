@@ -9,7 +9,6 @@ import (
 	"net/http"
 	"net/mail"
 	"net/url"
-	"sync"
 )
 
 type InvitationsController Controller
@@ -30,19 +29,19 @@ func (u *InvitationsController) GetOne(c *gin.Context) {
 	var invitation models.Invitation
 	var invitations []models.Invitation
 	u.Objects.Find(&invitations)
-	var wg sync.WaitGroup
-	for _, m := range invitations {
-		procInvite := m
-		wg.Add(1)
-		go func(matchedInvite *models.Invitation, currentInvit models.Invitation, token string, wgroup *sync.WaitGroup) {
-			defer wg.Done()
-			if token == currentInvit.Token {
-				*matchedInvite = currentInvit
-			}
-		}(&invitation, procInvite, token, &wg)
-	}
-	wg.Wait()
-	u.Objects.Preload("Guests").Find(&invitation)
+	//var wg sync.WaitGroup
+	//for _, m := range invitations {
+	//	procInvite := m
+	//	wg.Add(1)
+	//	go func(matchedInvite *models.Invitation, currentInvit models.Invitation, token string, wgroup *sync.WaitGroup) {
+	//		defer wg.Done()
+	//		if token == currentInvit.Token {
+	//			*matchedInvite = currentInvit
+	//		}
+	//	}(&invitation, procInvite, token, &wg)
+	//}
+	//wg.Wait()
+	u.Objects.Preload("Guests").Find(&invitation, "token=?", token)
 	c.JSON(200, invitation)
 }
 
@@ -97,19 +96,19 @@ func (u *InvitationsController) UpdateEmail(c *gin.Context) {
 	var invitation models.Invitation
 	var invitations []models.Invitation
 	u.Objects.Find(&invitations)
-	var wg sync.WaitGroup
-	for _, m := range invitations {
-		procInvite := m
-		wg.Add(1)
-		go func(matchedInvite *models.Invitation, currentInvit models.Invitation, token string, wgroup *sync.WaitGroup) {
-			defer wg.Done()
-			if token == currentInvit.Token {
-				*matchedInvite = currentInvit
-			}
-		}(&invitation, procInvite, token, &wg)
-	}
-	wg.Wait()
-	u.Objects.Preload("Guests").Find(&invitation)
+	//var wg sync.WaitGroup
+	//for _, m := range invitations {
+	//	procInvite := m
+	//	wg.Add(1)
+	//	go func(matchedInvite *models.Invitation, currentInvit models.Invitation, token string, wgroup *sync.WaitGroup) {
+	//		defer wg.Done()
+	//		if token == currentInvit.Token {
+	//			*matchedInvite = currentInvit
+	//		}
+	//	}(&invitation, procInvite, token, &wg)
+	//}
+	//wg.Wait()
+	u.Objects.Preload("Guests").Find(&invitation, "token=?", token)
 	email, isEmail := c.GetPostForm("Email")
 	if isValidEmail(email) && isEmail {
 		invitation.Email = sql.NullString{String: email, Valid: isValidEmail(email)}
