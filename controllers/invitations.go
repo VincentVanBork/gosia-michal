@@ -56,7 +56,7 @@ func (u *InvitationsController) Create(c *gin.Context) {
 	}
 	// Generate a password that is 64 characters long with 10 digits, 10 symbols,
 	// allowing upper and lower case letters, disallowing repeat characters.
-	res, err := password.Generate(16, 0, 0, false, true)
+	res, err := password.Generate(32, 0, 0, false, true)
 	if err != nil {
 		c.AbortWithStatusJSON(500, gin.H{
 			"reason": "BAD PASS GEN",
