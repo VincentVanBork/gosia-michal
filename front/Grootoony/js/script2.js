@@ -2,8 +2,6 @@ async function fetch_invitation(token) {
 	let response = await fetch("/guest/invitations/get/" + token)
 	return await response.json()
 }
-let invitation = await fetch_invitation(invitation_token)
-let tableID = invitation.TableId
 
 const showPlacesFn = () => {
 	const wrapper = document.createElement('div')
@@ -70,7 +68,9 @@ const drawTable = i => {
 	wrapper.appendChild(table)
 }
 
-const chooseTable = () => {
+const chooseTable = async function() {
+    let invitation = await fetch_invitation(invitation_token)
+    let tableID = invitation.TableId
 	const tableCh = document.getElementById('table' + tableID)
 	tableCh.style.color = 'gold'
 	tableCh.style.fontSize = '100px'
