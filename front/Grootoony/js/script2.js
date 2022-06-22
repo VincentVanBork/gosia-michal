@@ -14,6 +14,8 @@ const showPlacesFn = async function() {
 
 	const closePlaces = document.createElement('button')
 	closePlaces.setAttribute('id', 'closePlaces')
+	closePlaces.classList.add('closePlace')
+	closePlaces.style.left = '10px'
 	closePlaces.innerHTML += 'Wróć do zaproszenia'
 	closePlaces.addEventListener('click', closePlacesFn)
 	wrapper.appendChild(closePlaces)
@@ -30,11 +32,12 @@ const showPlacesFn = async function() {
 				drawTable(i)
 				fade(document.getElementById('table' + i))
 			}, 250 * (i + 1))
-
+			if(i==tableID){
 			setTimeout(() => {
+				const deTable = document.getElementById('table' + tableID)
 				chooseTable()
-				fade(document.getElementById('table' + tableID))
-			}, 3000)
+				fade(deTable)
+			}, 3000)}
 		}
 	}, 1000)
 }
@@ -47,22 +50,27 @@ const closePlacesFn = () => {
 	})
 	const closePlaces = document.getElementById('closePlaces')
 	closePlaces.remove()
-	const showPlaces = document.createElement('button')
-	showPlaces.setAttribute('id', 'showPlaces')
-	showPlaces.innerHTML += 'Pokaż miejsce'
-	showPlaces.addEventListener('click', showPlacesFn)
-	document.body.appendChild(showPlaces)
+
 	setTimeout(() => {
 		const wrapper = document.getElementById('wrapper')
 		wrapper.remove()
+		const showPlaces = document.createElement('button')
+		showPlaces.setAttribute('id', 'showPlaces')
+		showPlaces.classList.add('showPlace')
+		showPlaces.innerHTML += 'Pokaż miejsce'
+		showPlaces.addEventListener('click', showPlacesFn)
+		const imgBox = document.getElementById('img-div-id')
+		imgBox.appendChild(showPlaces)
 	}, 3000)
 }
 
 const showPlaces = document.createElement('button')
 showPlaces.setAttribute('id', 'showPlaces')
+showPlaces.classList.add('showPlace')
 showPlaces.innerHTML += 'Pokaż miejsce'
 showPlaces.addEventListener('click', showPlacesFn)
-document.body.appendChild(showPlaces)
+const imgBox = document.getElementById('img-div-id')
+imgBox.appendChild(showPlaces)
 
 const drawTable = i => {
 	const table = document.createElement('div')
@@ -75,8 +83,9 @@ const drawTable = i => {
 const chooseTable = async function() {
     let invitation = await fetch_invitation(invitation_token)
     let tableID = invitation.TableId
+	console.log(tableID);
 	const tableCh = document.getElementById('table' + tableID)
-	tableCh.style.color = 'gold'
+	tableCh.style.color = 'rgb(9, 9, 169)'
 	tableCh.style.fontSize = '100px'
 	tableCh.style.opacity = '0'
 	tableCh.classList.add('circle__box')
@@ -100,7 +109,7 @@ const chooseTable = async function() {
 	const table = document.createElement('div')
 	table.setAttribute('class', 'tableABS')
 	table.innerHTML += tableID
-	table.style.color = 'gold'
+	table.style.color = 'rgba(100, 100, 100, 0.5)'
 	tableCh.appendChild(table)
 }
 

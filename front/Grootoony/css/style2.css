@@ -1,6 +1,6 @@
-body {
-	background-color: rgba(0, 0, 0, 0);
-}
+/*body {*/
+/*	background-color: rgba(0, 0, 0, 0);*/
+/*}*/
 
 #wrapper {
 	position: absolute;
@@ -71,7 +71,7 @@ body {
 	left: 25px;
 	top: 25px;
 	font-family: Verdana, sans-serif;
-	font-size: 75px;
+	font-size: 100px;
 	color: silver;
 	text-align: center;
 	vertical-align: middle;
@@ -80,4 +80,22 @@ body {
 
 button {
 	color: black;
+}
+.showPlace {
+	position: relative;
+	bottom: 10px;
+	width: 500px;
+	left: calc(50% - 255px);
+	border-radius: 20px;
+	font-size: 50px;
+	line-height: 70px;
+}
+.closePlace {
+	position: absolute;
+	top: 10px;
+	width: 250px;
+	left: calc(50% - 125px);
+	border-radius: 20px;
+	font-size: 20px;
+	line-height: 35px;
 }

@@ -27,7 +27,7 @@
 	position: absolute;
 	top: 0;
 	transform: rotate(-135deg);
-	background-color: rgba(100, 100, 100, 0.3);
+	background-color: rgba(9, 9, 169, 0.5)
 }
 
 .circle__right {
