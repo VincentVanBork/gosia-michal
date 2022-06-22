@@ -3,7 +3,11 @@ async function fetch_invitation(token) {
 	return await response.json()
 }
 
-const showPlacesFn = () => {
+const showPlacesFn = async function() {
+
+    let invitation = await fetch_invitation(invitation_token)
+    let tableID = invitation.TableId
+
 	const wrapper = document.createElement('div')
 	wrapper.setAttribute('id', 'wrapper')
 	document.body.appendChild(wrapper)
