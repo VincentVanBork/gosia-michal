@@ -23,5 +23,5 @@ type Invitation struct {
 	Hotel              bool `gorm:"default:false"`
 	Transport          bool `gorm:"default:false"`
 	Guests             []Guest
-	TableId            int
+	TableId            uint `gorm:"default:-1"`
 }
