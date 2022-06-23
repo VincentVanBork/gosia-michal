@@ -1,6 +1,7 @@
 .circle__box {
 	width: 150px;
 	height: 150px;
+	transform: scale(0.5);
 }
 
 .circle__wrapper {
