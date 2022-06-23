@@ -43,10 +43,10 @@ body {
     animation-fill-mode: forwards;
 }
 .play-img {
-    width: 400px;
+    width: 50vw;
     position: absolute;
-    top: calc(50% - 270px);
-    left: calc(50% - 200px);
+    top: 15vw;
+    left: calc(50% - 25vw);
     opacity: 0;
 
     animation-delay: 0s;
@@ -55,10 +55,10 @@ body {
     animation-fill-mode: forwards;
 }
 .play-img-reverse {
-    width: 400px;
+    width: 50vw;
     position: absolute;
-    top: calc(50% - 270px);
-    left: calc(50% - 200px);
+    top: 15vw;
+    left: calc(50% - 25vw);
 
     animation-delay: 0s;
     animation-name: animate-play-img-rev;
@@ -72,8 +72,8 @@ body {
     flex-direction: row;
     justify-content: center;
     text-align: center;
-    font-size: 1.5vw;
-    line-height: 2vw;
+    font-size: 3.5vw;
+    line-height: 5vw;
     letter-spacing: 2px;
     padding-top: 20px;
     border-top: 1px solid white;
@@ -83,8 +83,8 @@ body {
     font-family:Habibi,Verdana, Geneva, Tahoma, sans-serif;
     padding: 20px;
     text-align: center;
-    font-size: 2vw;
-    line-height: 2.5vw;
+    font-size: 4vw;
+    line-height: 5.5vw;
     letter-spacing: 3px;
 }
 .snaw {

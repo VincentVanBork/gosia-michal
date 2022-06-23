@@ -31,35 +31,35 @@
 	left: calc(50% - 75px);
 }
 #table1 {
-	top: 15%;
+	top: 10%;
 	left: 10%;
 }
 #table2 {
-	top: 25%;
+	top: 15%;
 	left: calc(50% - 75px);
 }
 #table3 {
-	top: 15%;
+	top: 10%;
 	right: 10%;
 }
 #table4 {
-	top: 35%;
+	top: 20%;
 	left: 10%;
 }
 #table5 {
-	top: 45%;
+	top: 25%;
 	left: calc(50% - 75px);
 }
 #table6 {
-	top: 35%;
+	top: 20%;
 	right: 10%;
 }
 #table7 {
-	top: 55%;
+	top: 30%;
 	right: 10%;
 }
 #table8 {
-	top: 75%;
+	top: 40%;
 	right: 10%;
 }
 
