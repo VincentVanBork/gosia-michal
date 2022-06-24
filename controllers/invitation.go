@@ -11,15 +11,15 @@ import (
 	"net/url"
 )
 
-type InvitationsController Controller
+type InvitController Controller
 
-func (u *InvitationsController) GetAll(c *gin.Context) {
+func (u *InvitController) GetAll(c *gin.Context) {
 	var invitations []models.Invitation
 	u.Objects.Find(&invitations)
 	c.JSON(200, invitations)
 }
 
-func (u *InvitationsController) GetOne(c *gin.Context) {
+func (u *InvitController) GetOne(c *gin.Context) {
 	token := c.Param("token")
 	if token == "" {
 		c.AbortWithStatusJSON(400, gin.H{
@@ -45,7 +45,7 @@ func (u *InvitationsController) GetOne(c *gin.Context) {
 	c.JSON(200, invitation)
 }
 
-func (u *InvitationsController) Create(c *gin.Context) {
+func (u *InvitController) Create(c *gin.Context) {
 
 	var invitation models.Invitation
 	err := c.Bind(&invitation)
@@ -72,7 +72,7 @@ func (u *InvitationsController) Create(c *gin.Context) {
 
 }
 
-func (u *InvitationsController) UpdateGuests(c *gin.Context) {
+func (u *InvitController) UpdateGuests(c *gin.Context) {
 	var newInvitation models.Invitation
 	err := c.Bind(&newInvitation)
 	if err != nil {
@@ -86,7 +86,7 @@ func (u *InvitationsController) UpdateGuests(c *gin.Context) {
 	u.Objects.Save(oldInvitation)
 }
 
-func (u *InvitationsController) UpdateEmail(c *gin.Context) {
+func (u *InvitController) UpdateEmail(c *gin.Context) {
 	token := c.Param("token")
 	if token == "" {
 		c.AbortWithStatusJSON(400, gin.H{
@@ -132,7 +132,7 @@ func (u *InvitationsController) UpdateEmail(c *gin.Context) {
 	c.Redirect(http.StatusSeeOther, location.RequestURI())
 }
 
-func (u *InvitationsController) RenderInvitation(c *gin.Context) {
+func (u *InvitController) RenderInvitation(c *gin.Context) {
 	c.HTML(http.StatusOK, "index.html", nil)
 }
 

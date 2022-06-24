@@ -58,7 +58,7 @@ const closePlacesFn = () => {
 		showPlaces.setAttribute('id', 'showPlaces')
 		showPlaces.classList.add('showPlace')
 		showPlaces.innerHTML += 'Pokaż miejsce'
-		showPlaces.addEventListener('click', showPlacesFn)
+		showPlaces.addEventListener('click', function() {showPlacesFn})
 		const imgBox = document.getElementById('img-div-id')
 		imgBox.appendChild(showPlaces)
 	}, 3000)
@@ -73,9 +73,13 @@ const imgBox = document.getElementById('img-div-id')
 imgBox.appendChild(showPlaces)
 
 const drawTable = i => {
+	const view_port = window.innerWidth
 	const table = document.createElement('div')
 	table.setAttribute('class', 'table')
 	table.setAttribute('id', 'table' + i)
+	if(view_port>1000){
+		table.style.transform = 'scale(1)'
+	}
 	table.innerHTML += i
 	wrapper.appendChild(table)
 }

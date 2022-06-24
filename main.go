@@ -47,16 +47,24 @@ func main() {
 
 	invitations := r.Group("/guest")
 	//invitations.Use(auth.CheckAnyToken)
-	var invitationsController = controllers.InvitationsController{Objects: db}
-	routes.AddFrontInvitation(invitations, &invitationsController)
+	var InvitationsController = controllers.InvitController{Objects: db}
+	routes.AddFrontInvitation(invitations, &InvitationsController)
 
 	secure := r.Group("/api")
 	secure.Use(auth.CheckToken)
 	routes.AddGuestsURLs(secure, &controllers.GuestController{Objects: db})
-	routes.AddInvitationsURLs(secure, &invitationsController)
+	routes.AddInvitationsURLs(secure, &InvitationsController)
 
-	r.GET("/:token", auth.CheckAnyToken, invitationsController.RenderInvitation)
-	r.POST("/:token", invitationsController.UpdateEmail)
+	r.GET("/:token", auth.CheckAnyToken, InvitationsController.RenderInvitation)
+	r.POST("/:token", InvitationsController.UpdateEmail)
+
+	var TablesController = controllers.TableController{Objects: db}
+	guestTables := r.Group("/lista", gin.BasicAuth(gin.Accounts{
+		"michaljuras": "P@ndaExpress",
+	}))
+	guestTables.Static("/miejsca", "front/Grootoony/spis")
+	guestTables.GET("/dane", TablesController.GetAll)
+
 	//fmt.Printf(utils.HashPassword("L6A4YucGYKeDN5n5eKRHkMBtngDkAMV7"))
 	log.Fatal(r.Run(":" + port))
 }

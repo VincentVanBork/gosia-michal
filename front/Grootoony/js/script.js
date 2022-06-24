@@ -107,8 +107,8 @@ document.addEventListener('DOMContentLoaded', async function (event) {
 
     var clickEventList = function (event) {
         img_box.removeEventListener('click', clickEventList);
-        document.getElementById('play-img').classList.remove('play-img');
-        document.getElementById('play-img').classList.add('play-img-reverse');
+        //document.getElementById('play-img').classList.remove('play-img');
+        //document.getElementById('play-img').classList.add('play-img-reverse');
         if (invitation.Email.String === ""){
             setTimeout(() => typer(txt[0], "f1t", inx), 100);
             setTimeout(() => typer(txt[6], "f1.5t", inx), speed * txt[0].length);
@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', async function (event) {
         }
 
     };
-    img_box.addEventListener('click', clickEventList);
+    img_box.addEventListener('click', function() {clickEventList});
 });
 
 var executed = false;

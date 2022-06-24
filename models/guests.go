@@ -25,3 +25,10 @@ type Invitation struct {
 	Guests             []Guest
 	TableId            int `gorm:"default:-1"`
 }
+
+type TableInfo struct {
+	ID      uint   `gorm:"primarykey"`
+	Name    string `gorm:"default:Gosc"`
+	Surname string `gorm:"default:Nieznany"`
+	TableId int    `gorm:"default:-1"`
+}

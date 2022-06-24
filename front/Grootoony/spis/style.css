@@ -1,6 +1,21 @@
-/*body {*/
-/*	background-color: rgba(0, 0, 0, 0);*/
-/*}*/
+body {
+	background-color: rgba(0, 0, 0, 0);
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+}
+
+.person {
+	width: 33%;
+	height: calc(100vh / 34);
+	background-color: white;
+	border: 5px solid silver;
+	line-height: calc(100vh / 34);
+	font-size: 20px;
+	padding: 2px;
+	text-align: center;
+	margin: 2px;
+}
 
 #wrapper {
 	position: absolute;
@@ -34,8 +49,34 @@
 	vertical-align: middle;
 	line-height: 150px;
 	opacity: 0;
-	transform: scale(0.5);
+	transform: scale(0.75);
 }
+
+.tableABS {
+	height: 100px;
+	width: 100px;
+	background-color: rgba(0, 0, 0, 0);
+	border-radius: 50%;
+	position: absolute;
+	left: 25px;
+	top: 25px;
+	font-family: Verdana, sans-serif;
+	font-size: 75px;
+	color: silver;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 100px;
+}
+
+button {
+	color: black;
+}
+#closePlaces {
+	position: absolute;
+	left: 10px;
+	top: 10px;
+}
+
 @media only screen and (max-width: 500px) {
 	#table0 {
 		top: 5%;
@@ -82,7 +123,7 @@
 	}
 	#table1 {
 		top: 15%;
-		left: 10%;
+		left: 20%;
 	}
 	#table2 {
 		top: 25%;
@@ -90,11 +131,11 @@
 	}
 	#table3 {
 		top: 15%;
-		right: 10%;
+		right: 20%;
 	}
 	#table4 {
 		top: 35%;
-		left: 10%;
+		left: 20%;
 	}
 	#table5 {
 		top: 45%;
@@ -102,55 +143,51 @@
 	}
 	#table6 {
 		top: 35%;
-		right: 10%;
+		right: 20%;
 	}
 	#table7 {
 		top: 55%;
-		right: 10%;
+		right: 20%;
 	}
 	#table8 {
 		top: 75%;
-		right: 10%;
+		right: 20%;
 	}
 }
 
-.tableABS {
-	height: 100px;
-	width: 100px;
-	background-color: rgba(0, 0, 0, 0);
-	border-radius: 50%;
-	position: absolute;
-	left: 25px;
-	top: 25px;
-	font-family: Verdana, sans-serif;
-	font-size: 100px;
-	color: silver;
-	text-align: center;
-	vertical-align: middle;
-	line-height: 100px;
-	transform: scale(0.5);
+/* #table0 {
+	top: 5%;
+	left: calc(50% - 75px);
 }
-
-button {
-	color: black;
+#table1 {
+	top: 15%;
+	left: 20%;
 }
-.showPlace {
-	position: relative;
-	bottom: 10px;
-	width: 70%;
-	left: 15%;
-	border-radius: 20px;
-	font-size: 3vw;
-	line-height: 3.5vw;
-	letter-spacing: 2px;
+#table2 {
+	top: 25%;
+	left: calc(50% - 75px);
 }
-.closePlace {
-	position: absolute;
-	top: 10px;
-	width: 25vw;
-	left: calc(50% - 125px);
-	border-radius: 20px;
-	font-size: 2vw;
-	line-height: 2.5vw;
-	letter-spacing: 2px;
+#table3 {
+	top: 15%;
+	right: 20%;
 }
+#table4 {
+	top: 35%;
+	left: 20%;
+}
+#table5 {
+	top: 45%;
+	left: calc(50% - 75px);
+}
+#table6 {
+	top: 35%;
+	right: 20%;
+}
+#table7 {
+	top: 55%;
+	right: 20%;
+}
+#table8 {
+	top: 75%;
+	right: 20%;
+} */
