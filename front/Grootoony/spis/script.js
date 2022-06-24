@@ -19,7 +19,12 @@ window.onload = async ()=> {
 		person.addEventListener('click', function () {
 			showPlacesFn(goscie[i].TableId)
 		})
-		document.body.appendChild(person)
+		const container1 = document.getElementById('container1')
+		const container2 = document.getElementById('container2')
+		const container3 = document.getElementById('container3')
+		if(i<=28){container1.appendChild(person)}
+		else if(i>28&&i<=56){container2.appendChild(person)}
+		else if(i>56){container3.appendChild(person)}
 	}
 }
 

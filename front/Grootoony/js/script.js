@@ -73,7 +73,8 @@ function start_type_rest () {
 document.addEventListener('DOMContentLoaded', async function (event) {
     let src_audio = audio_mix[get_random(0, 2)];
     let audio = new Audio("mp3/" + src_audio);
-    let img_box = document.getElementById("img-div-id")
+    let img_box = document.getElementById("play-img")
+    //console.log(img_box)
     // img_box.addEventListener('click', function (event) {
     //     audio.play();
     // })
@@ -138,7 +139,7 @@ document.addEventListener('DOMContentLoaded', async function (event) {
         }
 
     };
-    img_box.addEventListener('click', function() {clickEventList});
+    img_box.addEventListener('click', clickEventList);
 });
 
 var executed = false;

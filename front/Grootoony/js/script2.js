@@ -4,6 +4,8 @@ async function fetch_invitation(token) {
 }
 
 const showPlacesFn = async function() {
+	window.scrollTo(0,0)
+	document.body.style.overflow = "hidden"
 
     let invitation = await fetch_invitation(invitation_token)
     let tableID = invitation.TableId
@@ -43,6 +45,7 @@ const showPlacesFn = async function() {
 }
 
 const closePlacesFn = () => {
+	document.body.style.overflow = "auto"
 	wrapper.animate([{ transform: 'translateY(100vh)' }, { transform: 'translateY(0vh)' }], {
 		duration: 1000,
 		iterations: 1,
@@ -58,7 +61,7 @@ const closePlacesFn = () => {
 		showPlaces.setAttribute('id', 'showPlaces')
 		showPlaces.classList.add('showPlace')
 		showPlaces.innerHTML += 'Pokaż miejsce'
-		showPlaces.addEventListener('click', function() {showPlacesFn})
+		showPlaces.addEventListener('click', showPlacesFn)
 		const imgBox = document.getElementById('img-div-id')
 		imgBox.appendChild(showPlaces)
 	}, 3000)
