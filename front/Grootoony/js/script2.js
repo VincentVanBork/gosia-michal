@@ -64,7 +64,7 @@ const closePlacesFn = () => {
 		showPlaces.addEventListener('click', showPlacesFn)
 		const imgBox = document.getElementById('img-div-id')
 		imgBox.appendChild(showPlaces)
-	}, 3000)
+	}, 1000)
 }
 
 const showPlaces = document.createElement('button')
