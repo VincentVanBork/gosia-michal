@@ -22,9 +22,9 @@ window.onload = async ()=> {
 		const container1 = document.getElementById('container1')
 		const container2 = document.getElementById('container2')
 		const container3 = document.getElementById('container3')
-		if(i<=28){container1.appendChild(person)}
-		else if(i>28&&i<=56){container2.appendChild(person)}
-		else if(i>56){container3.appendChild(person)}
+		if(i<=26){container1.appendChild(person)}
+		else if(i>26&&i<=53){container2.appendChild(person)}
+		else if(i>53){container3.appendChild(person)}
 	}
 }
 
